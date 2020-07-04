@@ -224,9 +224,6 @@ def generate_graphs(dataset, exp_name, model, test_data):
     quant_dict = pload(model, 'quant_analysis')
     plot_quant_results(quant_dict, dirname=model.dirname)
     
-    rationale_attn_dict = pload(model, 'rationale_attn')
-    plot_rationale(test_data,rationale_attn_dict,dirname=model.dirname)
-
     logging.info("Generating Gradients Graph ...")
     grads = pload(model, 'gradients')
     process_grads(grads,test_data.X)
@@ -251,4 +248,7 @@ def generate_graphs(dataset, exp_name, model, test_data):
     importance_ranking = pload(model, 'importance_ranking')
     plot_importance_ranking(test_data, importance_ranking, dirname=model.dirname)
 
-    print("="*300)
+    rationale_attn_dict = pload(model, 'rationale_attn')
+    plot_rationale(test_data,rationale_attn_dict,dirname=model.dirname)
+    
+print("="*300)

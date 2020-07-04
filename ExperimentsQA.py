@@ -5,15 +5,11 @@ from Transparency.Trainers.TrainerQA import Trainer, Evaluator
 
 
 def train_dataset(dataset, config):
-    # try:
     config = configurations_qa[config](dataset)
     n_iters = dataset.n_iters if hasattr(dataset, "n_iters") else 25
     trainer = Trainer(dataset, config=config, _type=dataset.trainer_type)
     trainer.train(dataset.train_data, dataset.dev_data, n_iters=n_iters, save_on_metric=dataset.save_on_metric)
     return trainer
-    # except Exception as e:
-        # print(e)
-        # return
 
 def run_evaluator_on_latest_model(dataset, config):
     config = configurations_qa[config](dataset)
@@ -31,7 +27,7 @@ def run_experiments_on_latest_model(dataset, config, force_run=True):
     evaluator.importance_ranking_experiment(test_data, force_run=force_run)
     evaluator.permutation_experiment(test_data, force_run=force_run)
     evaluator.quantitative_analysis_experiment(test_data, dataset, force_run=force_run)
-    # evaluator.integrated_gradient_experiment(test_data, force_run=force_run, no_of_instances=len(test_data.P))
+    evaluator.integrated_gradient_experiment(test_data, force_run=force_run, no_of_instances=len(test_data.P))
 
 def generate_graphs_on_latest_model(dataset, config):
 
@@ -45,7 +41,7 @@ def generate_graphs_on_latest_model(dataset, config):
 
 def train_dataset_on_encoders(dataset, encoders):
     for e in encoders:
-        # train_dataset(dataset, e) 
+        train_dataset(dataset, e) 
         run_experiments_on_latest_model(dataset, e)
 
 def generate_graphs_on_encoders(dataset, encoders):

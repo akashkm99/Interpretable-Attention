@@ -3,13 +3,8 @@ from datetime import datetime
 from tqdm import tqdm
 import pickle
 from itertools import zip_longest
-from lime.lime_text import LimeTextExplainer
 
 def integrated_gradients(grads, outputs, testdata, grads_wrt='X'):
-    
-    # for k in grads:
-        # print(k)
-    # exit()
     
     grads_list = grads[grads_wrt]  # (steps,L,H)
     input = np.array(testdata)   # (H)
@@ -24,8 +19,6 @@ def integrated_gradients(grads, outputs, testdata, grads_wrt='X'):
     integral = np.average(np.array(grads_list), axis=0) # (L,H)
     int_grads = np.multiply(integral, diff)  #(L,H) * (1,H) --> (L,H)
     int_grads = np.sum(int_grads,axis=1)   #(L)
-
-    # print ("ydiff, int_grads.sum(0)",ydiff, int_grads.sum(0))
 
     return int_grads
 
@@ -121,27 +114,6 @@ def get_collection_from_embeddings(embd_sent, steps=50):
     embed_collection = np.array(buffer).swapaxes(0,1)
     return embed_collection
 
-    """
-    embed_collection = []
-
-    for e in embd_sent:  # word wise
-
-        zero_vector = np.zeros_like(e)
-        diff = e - zero_vector
-        inc = np.divide(diff, steps)
-
-        buffer = []
-        buffer.append(list(zero_vector))
-
-        for i in range(steps - 2):
-            zero_vector = np.add(zero_vector, inc)
-            buffer.append(list(zero_vector))
-
-        buffer.append(list(e))
-        embed_collection.append(buffer)
-
-    return embed_collection
-    """
 def get_complete_testdata_embed_col(dataset, embd_dict, idx=0, steps=50, is_qa=False):
     # returns tesdata of shape [No.of.instances, Steps, WC, hidden_size] for IG
     if(is_qa):
@@ -149,8 +121,6 @@ def get_complete_testdata_embed_col(dataset, embd_dict, idx=0, steps=50, is_qa=F
     else:
         embds = get_embeddings_for_testdata(dataset.test_data.X[idx], embd_dict)
     embds_col = get_collection_from_embeddings(embds, steps=steps)
-    # swap axis 0 and 1 to ensure evaluator.evaluate is fed properly
-    # assert embds_col[i][-1][5] == embds[i][5]  # check that the last embd in col == embd of testdata instance
     embds_col_swapped = swap_axis(embds_col)
     return embds_col_swapped
 

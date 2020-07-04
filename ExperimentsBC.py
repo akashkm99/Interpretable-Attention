@@ -11,6 +11,7 @@ def train_dataset(dataset, config='lstm') :
         n_iters = dataset.n_iter
     else:
         n_iters = 8
+    
     trainer.train(dataset.train_data, dataset.dev_data, n_iters=n_iters, save_on_metric=dataset.save_on_metric)
     evaluator = Evaluator(dataset, trainer.model.dirname, _type=dataset.trainer_type)
     _ = evaluator.evaluate(dataset.test_data, save_results=True)
@@ -19,8 +20,8 @@ def train_dataset(dataset, config='lstm') :
 def train_dataset_on_encoders(dataset, encoders) :
     for e in encoders :
         train_dataset(dataset, e)
-        run_rationale_on_latest_model(dataset, e)
         run_experiments_on_latest_model(dataset, e)
+        run_rationale_on_latest_model(dataset, e)
         
 def generate_graphs_on_encoders(dataset, encoders) :
     for e in encoders :
@@ -52,7 +53,6 @@ def run_experiments_on_latest_model(dataset, config='lstm', force_run=True) :
         evaluator.conicity_analysis_experiment(test_data)
         evaluator.permutation_experiment(test_data, force_run=force_run)
         evaluator.integrated_gradient_experiment(dataset, force_run=force_run)
-
 
 def generate_graphs_on_latest_model(dataset, config='lstm'):
 

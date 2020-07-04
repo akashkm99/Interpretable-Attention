@@ -657,8 +657,6 @@ class Model() :
         embd_dict = np.array(self.Pencoder.embedding.weight.cpu().data)
         int_grads = []
 
-        print("calculating IG")
-
         for i in tqdm(range(no_of_instances)):
             new_data = dict()
             #(B,L,E), (B,L), (B,L)
