@@ -100,7 +100,7 @@ diversity_weight=0.5
 python train_and_run_experiments_bc.py --dataset ${dataset_name} --data_dir . --output_dir ${output_path} --encoder ${model_name} --diversity ${diversity_weight}
 ```
 
-###  Other Tasks with two input sequences (NLI, Paraphrase Detection, QA)
+### Tasks with two input sequences (NLI, Paraphrase Detection, QA)
 
 ```
 python train_and_run_experiments_qa.py --dataset ${dataset_name} --data_dir . --output_dir ${output_path} --encoder ${model_name} --diversity ${diversity_weight}
