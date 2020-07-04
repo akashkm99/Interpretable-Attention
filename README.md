@@ -78,7 +78,7 @@ python train_and_run_experiments_bc.py --dataset ${dataset_name} --data_dir . --
 ```
 
 ```dataset_name``` can be any of the following: ```sst```, ```imdb```, ```amazon```,```yelp```,```20News_sports``` ,```tweet```, ```Anemia```, and ```Diabetes```.
-```model_name``` can be ```vanilla_lstm```, ```ortho_lstm```, ```diversity_lstm```. 
+```model_name``` can be ```vanilla_lstm```, or ```ortho_lstm```, ```diversity_lstm```. 
 Only for the ```diversity_lstm``` model, the ```diversity_weight``` flag should be added. 
 
 For example, to train and run experiments on the IMDB dataset with the Orthogonal LSTM, use:
@@ -106,28 +106,9 @@ python train_and_run_experiments_bc.py --dataset ${dataset_name} --data_dir . --
 python train_and_run_experiments_qa.py --dataset ${dataset_name} --data_dir . --output_dir ${output_path} --encoder ${model_name} --diversity ${diversity_weight}
 ```
 
-The ```dataset_name``` can be any of ```snli```, '''qqp''', '''cnn''', '''babi_1''', '''babi_2''', and '''babi_3'''. 
-As before, ```model_name``` can be ```vanilla_lstm```, ```ortho_lstm```, ```diversity_lstm```. 
+The ```dataset_name``` can be any of ```snli```, ```qqp```, ```cnn```, ```babi_1```, ```babi_2```, and ```babi_3```. 
+As before, ```model_name``` can be ```vanilla_lstm```, ```ortho_lstm```, or ```diversity_lstm```. 
 
-
-For example, to train and run experiments on the SNLI dataset with the Orthogonal LSTM, use:
-
-```
-dataset_name=snli
-model_name=ortho_lstm
-output_path=./experiments
-python train_and_run_experiments_qa.py --dataset ${dataset_name} --data_dir . --output_dir ${output_path} --encoder ${model_name} 
-```
-
-Similarly, for the Diversity LSTM, use
-
-```
-dataset_name=snli
-model_name=diversity_lstm
-output_path=./experiments
-diversity_weight=0.1
-python train_and_run_experiments_qa.py --dataset ${dataset_name} --data_dir . --output_dir ${output_path} --encoder ${model_name} --diversity ${diversity_weight}
-```
 
 
 
