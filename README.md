@@ -57,10 +57,11 @@ ipython==7.4.0
 scikit_learn==0.20.3
 ```
 
-Install the required packages using:
+Install the required packages and download the spacy en model:
 ```
 cd Transparency 
 pip install -r requirements.txt
+python -m spacy download en
 ```
 
 ## Preparing the Datasets 
